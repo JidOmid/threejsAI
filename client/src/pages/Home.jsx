@@ -34,7 +34,7 @@ const Home = () => {
               {...headContentAnimation}
               className="flex flex-col gap-5"
             >
-              <p className="max-w-md font-normal text-gray-600 text-base">
+              <p className="max-w-md font-normal text-gray-600 text-base bg-yellow-100/20">
                 Create a unique and exclusive shirt with this 3D customization
                 tool. <strong>Use AI prompts</strong> to experiment with styles.
                 Save a photo of your shirt once you're done.
