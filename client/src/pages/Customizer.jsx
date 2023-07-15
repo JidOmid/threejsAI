@@ -15,7 +15,6 @@ import {
   FilePicker,
   Tab,
 } from "../components";
-import { Color } from "three";
 
 const Customizer = () => {
   const snap = useSnapshot(state);
@@ -44,12 +43,39 @@ const Customizer = () => {
           <AIPicker
             prompt={prompt}
             setPrompt={setPrompt}
-            generatingImg={setGeneratingImg}
+            generatingImg={generatingImg}
             handleSubmit={handleSubmit}
           />
         );
       default:
         return null;
+    }
+  };
+
+  const handleSubmit = async (type) => {
+    if (!prompt) return alert("Please enter a prompt");
+
+    try {
+      setGeneratingImg(true);
+
+      const response = await fetch("http://localhost:8080/api/v1/dalle", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt,
+        }),
+      });
+
+      const data = await response.json();
+
+      handleDecals(type, `data:image/png;base64,${data.photo}`);
+    } catch (error) {
+      alert(error);
+    } finally {
+      setGeneratingImg(false);
+      setActiveEditorTab("");
     }
   };
 
@@ -67,16 +93,23 @@ const Customizer = () => {
     switch (tabName) {
       case "logoShirt":
         state.isLogoTexture = !activeFilterTab[tabName];
+        console.log("test");
+        console.log(tabName);
         break;
       case "stylishShirt":
         state.isFullTexture = !activeFilterTab[tabName];
+        console.log("test");
+        console.log(activeFilterTab);
         break;
       default:
         state.isLogoTexture = true;
         state.isFullTexture = false;
+        console.log("test");
+        console.log(activeFilterTab);
+        break;
     }
     //after setting state set activefiltertab
-    setActiveEditorTab((prevState) => {
+    setActiveFilterTab((prevState) => {
       return {
         ...prevState,
         [tabName]: !prevState[tabName],
