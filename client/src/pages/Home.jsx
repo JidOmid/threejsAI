@@ -36,8 +36,8 @@ const Home = () => {
             >
               <p className="max-w-md font-normal text-gray-600 text-base">
                 Create a unique and exclusive shirt with this 3D customization
-                tool. <strong>Unleash your imagination</strong> and define your
-                own style.
+                tool. <strong>Use AI prompts</strong> to experiment with styles.
+                Save a photo of your shirt once you're done.
               </p>
 
               <CustomButton

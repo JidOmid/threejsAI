@@ -93,19 +93,16 @@ const Customizer = () => {
     switch (tabName) {
       case "logoShirt":
         state.isLogoTexture = !activeFilterTab[tabName];
-        console.log("test");
-        console.log(tabName);
         break;
       case "stylishShirt":
         state.isFullTexture = !activeFilterTab[tabName];
-        console.log("test");
-        console.log(activeFilterTab);
+        break;
+      case "download":
+        downloadCanvasToImage();
         break;
       default:
         state.isLogoTexture = true;
         state.isFullTexture = false;
-        console.log("test");
-        console.log(activeFilterTab);
         break;
     }
     //after setting state set activefiltertab
@@ -163,7 +160,9 @@ const Customizer = () => {
                 key={tab.name}
                 tab={tab}
                 isFilterTab
-                isActiveTab={activeFilterTab[tab.name]}
+                isActiveTab={
+                  tab.name === "download" ? null : activeFilterTab[tab.name]
+                }
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
